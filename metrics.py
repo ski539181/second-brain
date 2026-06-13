@@ -149,10 +149,47 @@ def scripts_metrics():
     return {"total": len(py_files), "total_kb": round(total_bytes / 1024, 1)}
 
 
-def bar(pct, width=20):
-    """Progress bar."""
+def bar(pct, width=20, goal=None, color=False):
+    """Progress bar with optional goal marker.
+
+    Args:
+        pct: current percentage (0-100)
+        width: total bar width
+        goal: target percentage to mark (e.g., 50)
+        color: ANSI colors (works in terminal, ignored in Telegram)
+    """
+    pct = max(0, min(100, pct))
     filled = int(width * pct / 100)
-    return "█" * filled + "░" * (width - filled)
+    bar_str = "█" * filled + "░" * (width - filled)
+
+    # Insert goal marker
+    if goal is not None and 0 < goal < 100:
+        goal_pos = int(width * goal / 100)
+        if goal_pos >= filled:
+            bar_str = bar_str[:goal_pos] + "│" + bar_str[goal_pos+1:]
+        else:
+            # Goal already passed
+            bar_str = bar_str[:goal_pos] + "┤" + bar_str[goal_pos+1:]
+
+    if color:
+        if pct >= goal if goal else pct >= 80:
+            return f"\033[92m{bar_str}\033[0m"  # green
+        elif pct >= (goal * 0.6 if goal else 50):
+            return f"\033[93m{bar_str}\033[0m"  # yellow
+        else:
+            return f"\033[91m{bar_str}\033[0m"  # red
+
+    return bar_str
+
+
+def status_emoji(pct, goal=50):
+    """Emoji based on progress toward goal."""
+    if pct >= goal:
+        return "🟢"
+    elif pct >= goal * 0.6:
+        return "🟡"
+    else:
+        return "🔴"
 
 
 def print_pretty(metrics):
@@ -169,9 +206,11 @@ def print_pretty(metrics):
     print("\n🎯 ทักษะ (Practice)")
     print(f"   ฝึกแล้ว:  {p['total']}/45 ข้อ")
     mastery = p['avg_mastery']
-    print(f"   ความเชี่ยวชาญ: {mastery:>5.1f}% {bar(mastery)}")
+    e = status_emoji(mastery, 50)
+    print(f"   {e} ความเชี่ยวชาญ: {mastery:>5.1f}% {bar(mastery, goal=50)}  ← เป้า 50%")
     pr = p.get('pass_rate', 0)
-    print(f"   ทำถูก:  {pr:>5.1f}% {bar(pr)}")
+    e2 = status_emoji(pr, 70)
+    print(f"   {e2} ทำถูก:  {pr:>5.1f}% {bar(pr, goal=70)}  ← เป้า 70%")
     print(f"   ครั้งที่ลอง: {p['attempts']} | ทำผ่าน: {p['passes']}")
     explain = {
         "new": "ยังไม่เคยลอง",
@@ -183,7 +222,8 @@ def print_pretty(metrics):
     print(f"   สถานะ: {', '.join(status_parts)}")
 
     print("\n📔 บันทึกการเรียนรู้ (Journal)")
-    print(f"   บันทึกทั้งหมด: {j['total']} รายการ")
+    j_emoji = status_emoji(j['total'], 7)
+    print(f"   {j_emoji} บันทึกทั้งหมด: {j['total']} รายการ {bar(j['total']*14.28, goal=100)}  ← เป้า 7")
     print(f"   สัปดาห์นี้: {j['this_week']} รายการ")
     print(f"   ล่าสุด: {j['last'] or 'ยังไม่มี'}")
 
@@ -198,11 +238,14 @@ def print_pretty(metrics):
     print(f"   ไฟล์ทั้งหมด: {n['total']} ไฟล์")
     linked = n['with_wikilinks']
     linked_pct = linked / n['total'] * 100 if n['total'] else 0
-    print(f"   เชื่อมโยงกัน: {linked}/{n['total']} ({linked_pct:.0f}%) {bar(linked_pct)}")
+    e3 = status_emoji(linked_pct, 30)
+    print(f"   {e3} เชื่อมโยงกัน: {linked}/{n['total']} ({linked_pct:.0f}%) {bar(linked_pct, goal=30)}  ← เป้า 30%")
     print(f"   ลิงก์เดียวดาย: {n['orphan_links']} ลิงก์")
 
     print("\n⚙️  ระบบอัตโนมัติ")
-    print(f"   Cron jobs: {c['active']}/{c['total']} ทำงาน")
+    cron_pct = c['active'] / c['total'] * 100 if c['total'] else 0
+    e4 = status_emoji(cron_pct, 90)
+    print(f"   {e4} Cron jobs: {c['active']}/{c['total']} ทำงาน {bar(cron_pct, goal=100)}")
     print(f"   Skills: {sk['total']} ตัว")
     print(f"   Scripts: {sc['total']} ตัว ({sc['total_kb']} KB)")
 
@@ -212,9 +255,9 @@ def print_pretty(metrics):
     score += min(20, j['this_week'] * 5)
     score += min(15, n['with_wikilinks'])
     score += min(15, sk['total'])
-    print(f"\n🌟 คะแนนรวม: {score:.1f}/100 {bar(score)}")
-    print(f"   {bar(score)} ← ตำแหน่งปัจจุบัน")
-    print(f"   {'█' * 50} ← เป้า 50/100 (สัปดาห์นี้)")
+    s_emoji = status_emoji(score, 50)
+    print(f"\n{s_emoji} คะแนนรวม: {score:.1f}/100 {bar(score, goal=50)}  ← เป้า 50")
+    print(f"   {bar(score, goal=50)} ← ตำแหน่งปัจจุบัน (เส้น │ = เป้า)")
 
     print("\n📌 แนะนำทำต่อ:")
     recs = []
