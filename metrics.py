@@ -201,6 +201,7 @@ def print_pretty(metrics):
     c = metrics["cron"]
     sk = metrics["skills"]
     sc = metrics["scripts"]
+    cost = t['week_total'] * 0.00021 / 1000  # for token section
     print(f"📊 ระบบเรียนรู้ของ Hermes — รายงานประจำวัน\n")
     print("═" * 50)
     print("\n🎯 ทักษะ (Practice)")
@@ -228,11 +229,14 @@ def print_pretty(metrics):
     print(f"   ล่าสุด: {j['last'] or 'ยังไม่มี'}")
 
     print("\n💰 การใช้ tokens")
-    print(f"   บันทึกไว้: {t['tracked_days']} วัน")
-    print(f"   วันนี้: {t['total_today']:,} tokens")
-    print(f"   สัปดาห์นี้: {t['week_total']:,} tokens")
-    cost = t['week_total'] * 0.00021 / 1000
-    print(f"   ค่าใช้จ่าย (ประมาณ): ${cost:.4f}")
+    # Cost as % of weekly budget (e.g., $5 = 100%)
+    weekly_budget_usd = 5.0
+    cost_pct = min(100, (cost / weekly_budget_usd) * 100) if cost > 0 else 0
+    cost_emoji = "🟢" if cost < 0.5 else "🟡" if cost < 2 else "🔴"
+    print(f"   {cost_emoji} บันทึกไว้: {t['tracked_days']} วัน")
+    print(f"   📊 วันนี้: {t['total_today']:,} tokens")
+    print(f"   📊 สัปดาห์นี้: {t['week_total']:,} tokens")
+    print(f"   💵 ค่าใช้จ่าย: ${cost:.4f} {bar(cost_pct, goal=20)}  ← เป้า <$1/สัปดาห์")
 
     print("\n📝 คลังความรู้ (Notes)")
     print(f"   ไฟล์ทั้งหมด: {n['total']} ไฟล์")
@@ -289,6 +293,9 @@ def main():
     out = CACHE / "metrics.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(metrics, indent=2))
+
+    # Compute cost before print
+    cost = metrics["tokens"]["week_total"] * 0.00021 / 1000
 
     print_pretty(metrics)
     print(f"📄 Saved: {out}")
