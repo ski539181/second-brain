@@ -1,0 +1,15 @@
+{
+  "name": "ft-data-pipeline",
+  "version": "1.0.0",
+  "description": "Web scraper using patchright (Playwright drop-in) for FT data",
+  "type": "module",
+  "main": "WebScraper.js",
+  "scripts": {
+    "test": "node test.js",
+    "scrape": "node WebScraper.js"
+  },
+  "dependencies": {
+    "camoufox": "^0.1.19",
+    "patchright": "^1.50.0"
+  }
+}

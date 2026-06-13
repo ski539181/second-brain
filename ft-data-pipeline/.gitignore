@@ -1,0 +1,6 @@
+node_modules/
+camoufox.zip
+camoufox-*/
+download.log
+*.log
+.DS_Store
