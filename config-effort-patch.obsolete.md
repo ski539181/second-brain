@@ -2,7 +2,7 @@
 > ⚠️ ไฟล์นี้เป็น "patch" ไม่ได้ apply แล้ว
 > ดู diff แล้วบอก "ทำเลย" ถ้าโอเค → ผม apply ให้
 
-## Diff (จะเพิ่มใน `~/.hermes/config.yaml`)
+## Diff (จะเพิ่มใน `~/.[[Hermes]]/config.yaml`)
 
 ```yaml
 # เพิ่มต่อท้าย section 'agent:' (หรือสร้าง section ใหม่)
@@ -36,7 +36,7 @@ agent:
 
 ## ข้อจำกัด
 
-- MiniMax-M3 (deepseek-v4-flash) ไม่ใช่ reasoning model → `reasoning_effort` API param อาจไม่มีผล
+- MiniMax-M3 ([[Deepseek]]-v4-flash) ไม่ใช่ reasoning model → `reasoning_effort` API param อาจไม่มีผล
 - แต่ soft signal นี้จะคุม max_tokens, tool budget, prompt style จริง
 
 ## Verify หลัง apply

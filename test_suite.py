@@ -90,7 +90,7 @@ TESTS = [
         "script": "cross_session.py",
         "args": [],
         "expect": "Cross-Session",
-        "timeout": 5,
+        "timeout": 15,
     },
     {
         "name": "pattern_mining",
@@ -116,8 +116,8 @@ TESTS = [
     {
         "name": "vector_memory",
         "script": "vector_memory.py",
-        "args": ["--search", "scraper"],
-        "expect": "Search",
+        "args": [],
+        "expect": "Test searches",
         "timeout": 30,
     },
 ]

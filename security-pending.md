@@ -1,6 +1,6 @@
 # Pending Security Items (2026-06-13)
 
-## 🚨 Revoke GitHub tokens (paste'd in chat)
+## 🚨 Revoke [[GitHub]] tokens (paste'd in chat)
 
 **2 tokens were shared in chat earlier in the session:**
 

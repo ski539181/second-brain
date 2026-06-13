@@ -1,6 +1,6 @@
 # Crons Patch Preview
 
-> ✅ **Status: APPLIED 2026-06-13** — crons updated. Rollback: `~/.hermes/scripts/rollback_crons.sh` — Auto-Reasoning Integration
+> ✅ **Status: APPLIED 2026-06-13** — crons updated. Rollback: `~/.[[Hermes]]/scripts/rollback_crons.sh` — Auto-Reasoning Integration
 
 **Status:** PREPARED, NOT APPLIED — review + run `apply_cron_<id>.sh` to install
 
@@ -9,7 +9,7 @@
 **Why:** Currently both crons use only "🎚️ Effort Mode" soft signal (B). This adds optional real API param path (A) when needed.
 
 ## Safety
-- Backup cron jobs.json before any change
+- Backup [[Cron]] jobs.json before any change
 - Rollback: `bash ~/.hermes/scripts/rollback_crons.sh`
 - Per-cron opt-in: `use_real_reasoning: false` (default off)
 
@@ -27,7 +27,7 @@
 +   `python3 ~/.hermes/scripts/auto_reasoning.py "your working question here" --effort=high`
 +   → ใช้ output นั้นเป็น foundation ต่อ
 +   → ถ้า task เบาๆ (status check, summary) → skip pre-step
- 📖 ดูแล้ว: Second Brain — [N], Kanban — [N], Loop ก่อนหน้า — [ผล]
+ 📖 ดูแล้ว: [[Second Brain]] — [N], Kanban — [N], Loop ก่อนหน้า — [ผล]
 ```
 
 ### Change 2: Add config flag to jobs.json

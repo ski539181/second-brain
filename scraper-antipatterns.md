@@ -4,7 +4,7 @@
 
 ## 💾 State & Persistence — ❌ อย่าทำ
 - ❌ `fs.writeFile('state.json', data)` ตรงๆ → ไม่ atomic, ไฟล์อาจเสียกลางทาง
-- ❌ เก็บ results ใน memory ไม่จำกัด → OOM เมื่อ URLs เยอะ
+- ❌ เก็บ results ใน [[Memory]] ไม่จำกัด → OOM เมื่อ URLs เยอะ
 - ❌ ไม่มี checksum → corruption ตรวจไม่เจอ, resume ผิดพลาด
 - ❌ ไม่ backup state → ไฟล์หาย = เริ่มใหม่หมด
 - ❌ save checkpoint ทุก request → I/O bottleneck (ช้ามาก)
@@ -19,7 +19,7 @@
 - ❌ catch error เงียบๆ → ไม่รู้ว่าพังตรงไหน
 - ❌ log error message แต่ไม่ log context (URL, attempt, stack)
 
-## 🛡️ Cloudflare Bypass — ❌ อย่าทำ
+## 🛡️ [[Cloudflare]] Bypass — ❌ อย่าทำ
 - ❌ ลบ `webdriver` flag อันเดียว → CF ตรวจ 6+ จุด
 - ❌ ลืม randomize canvas fingerprint → ตรวจได้ (hash ตรง)
 - ❌ ใช้ 2captcha โดยไม่มี API key → 500 error, retry ไม่จบ

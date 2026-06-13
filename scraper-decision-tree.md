@@ -29,7 +29,7 @@ Error?
   └─ Circuit open                → 🚫 reject immediately
 ```
 
-## 🌳 เจอ Cloudflare → Bypass Strategy
+## 🌳 เจอ [[Cloudflare]] → Bypass Strategy
 ```
 Challenge detected
   ├─ 1. Stealth OK? → continue
@@ -92,7 +92,7 @@ Trigger
   ├─ Page crash → 🔧 new page
   ├─ Context corrupted → 🆕 new context
   ├─ IP rate-limited → 🔄 restart browser (new IP)
-  └─ Memory > 80% → 🔄 restart browser
+  └─ [[Memory]] > 80% → 🔄 restart browser
 ```
 
 ## 🌳 เมื่อไหร่ควรหยุด (kill switch)?

@@ -1,4 +1,4 @@
-# TokenRouter + M3 — reasoning_effort support
+# [[TokenRouter]] + M3 — reasoning_effort support
 
 **Status (verified 2026-06-13):** ✅ M3 รองรับ `reasoning_effort` ผ่าน TokenRouter API
 
@@ -31,7 +31,7 @@
 **Key insight:** effort ไม่แค่ "คิดเยอะ" แต่ "คิดดีกว่า" — response quality scale ชัดเจน (verified ด้วย 17*24, PG vs Mongo, Python debug)
 
 ## Tool: `auto_reasoning.py`
-Path: `~/.hermes/scripts/auto_reasoning.py`
+Path: `~/.[[Hermes]]/scripts/auto_reasoning.py`
 
 **Features:**
 - Heuristic detect effort จาก prompt (length + keywords LOW_KW/HIGH_KW)
@@ -50,5 +50,5 @@ python3 ~/.hermes/scripts/auto_reasoning.py --effort=high "code question" --expl
 ## Notes
 - Hermes default config DOES NOT forward `reasoning_effort` to API (run_agent.py logic)
 - To use from Hermes: ต้อง patch run_agent.py หรือใช้ auto_reasoning.py แยก
-- Cron prompts ตอนนี้ใช้ B (output style soft signal) — สามารถ upgrade เป็น A (real param) ผ่าน auto_reasoning.py
+- [[Cron]] prompts ตอนนี้ใช้ B (output style soft signal) — สามารถ upgrade เป็น A (real param) ผ่าน auto_reasoning.py
 - 12s response time สำหรับ "hi" effort=none น่าจะเป็น cold start — math=17*24 effort=none = 3.2s

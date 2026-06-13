@@ -2,7 +2,7 @@
 
 ## Why these patches
 
-camoufox 0.1.19 npm package has a `Version.fromPath()` bug on non-standard install paths. On Termux (Android aarch64), the standard install location doesn't exist, so the function returns `undefined` and `.split()` crashes.
+camoufox 0.1.19 npm package has a `Version.fromPath()` bug on non-standard install paths. On [[Termux]] (Android aarch64), the standard install location doesn't exist, so the function returns `undefined` and `.split()` crashes.
 
 ## Files patched
 
@@ -96,4 +96,4 @@ Or vendor the package: copy `node_modules/camoufox` to a git repo and add a post
 
 ## Why this still fails on Termux
 
-After all 3 patches, the camoufox binary launches but fails on `libgtk-3.so.0: cannot open shared object file` — Termux doesn't ship GTK. **Use FTScraper.py (curl_cffi) for HTTP-only scraping.**
+After all 3 patches, the camoufox binary launches but fails on `libgtk-3.so.0: cannot open shared object file` — Termux doesn't ship GTK. **Use [[FTScraper]].py ([[curl_cffi]]) for HTTP-only scraping.**

@@ -17,7 +17,7 @@
 YYYY-MM-DD_source-title.md
 2026-06-13_karpathy-second-brain.md
 2026-06-13_karpathy-17-summary.md
-2026-06-13_session-tokenrouter-401.md
+2026-06-13_session-[[TokenRouter]]-401.md
 ```
 
 ## Workflow

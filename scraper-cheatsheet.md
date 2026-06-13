@@ -38,7 +38,7 @@ CLOSED ──[10 fails]──► OPEN ──[60s]──► HALF-OPEN ──[succ
 
 ---
 
-## 🛡️ Cloudflare Bypass Waterfall
+## 🛡️ [[Cloudflare]] Bypass Waterfall
 ```
 1. Stealth patches (navigator, plugins, permissions)
    ↓ fail

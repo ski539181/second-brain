@@ -1,4 +1,4 @@
-# cross.md — AI Rules for Second Brain
+# cross.md — AI Rules for [[Second Brain]]
 
 > **Schema/Rules** ที่ AI ต้องทำตามเมื่อทำงานกับ Second Brain นี้
 > เปรียบเสมือน "กฎระเบียบ" ของ AI — ต้องอ่านก่อนทำงานใดๆ
@@ -39,7 +39,7 @@
   - medium = default (most tasks)
   - high = research/code/analysis
 - **ถ้า technical** → เรียก `auto_reasoning.py --effort=medium` ก่อน
-- **ดูเพิ่ม:** `~/.hermes/notes/ai-knowledge.md`
+- **ดูเพิ่ม:** `~/.[[Hermes]]/notes/ai-knowledge.md`
 
 ## 🎯 Token Optimization (per Karpathy)
 
@@ -71,5 +71,5 @@
 | `log.md` | บันทึกการทำงาน | append only |
 | `cross.md` | กฎ AI | read-only (this file) |
 | `podcast.md` | session summary | append + read |
-| `cron-decisions.md` | feedback (✅/❌) | append + read |
+| `[[Cron]]-decisions.md` | feedback (✅/❌) | append + read |
 | `STATE.md` | system state | read + update marker |

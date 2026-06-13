@@ -1,9 +1,9 @@
 # Hermes Tool Inventory (2026-06-13)
 
 ## System
-- **Host:** Linux 6.17.0-PROot-Distro (Termux on Android)
+- **Host:** Linux 6.17.0-PROot-Distro ([[Termux]] on Android)
 - **Hermes:** CLI in `/data/data/com.termux/files/home/Hermes-Agent/`
-- **Model:** MiniMax-M3 (deepseek-v4-flash) via TokenRouter
+- **Model:** MiniMax-M3 (deepseek-v4-flash) via [[TokenRouter]]
 - **Python:** 3.14.1
 - **Node:** v22.22.1
 - **Java:** OpenJDK 17.0.13+1 at `/data/local/opt/jdk-17.0.13+1/`
@@ -36,7 +36,7 @@ If `npm install` is re-run, these patches are lost. Re-apply or vendor the packa
 ## Known Limitations
 
 - **Termux has no libgtk-3** → Firefox can't fully launch (XPCOM error). Patchright also fails because no Chromium.
-- **Workaround:** Use FTScraper.py (curl_cffi) — pure HTTP, no browser needed, bypasses CF TLS checks.
+- **Workaround:** Use [[FTScraper]].py (curl_cffi) — pure HTTP, no browser needed, bypasses CF TLS checks.
 - **For full browser:** Deploy to x86_64 server.
 
 ## Storage

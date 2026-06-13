@@ -7,8 +7,8 @@ Grep with `search_files pattern=<keyword> path=~/.hermes/notes target=content`.
 
 ## User Setup (Hermes / providers)
 
-<!-- TokenRouter, MiniMax-M3, Telegram platform, environment facts that
-     are reference-only. Move here if main memory gets tight. -->
+<!-- [[TokenRouter]], MiniMax-M3, Telegram platform, environment facts that
+     are reference-only. Move here if main [[Memory]] gets tight. -->
 
 ---
 
@@ -31,7 +31,7 @@ Grep with `search_files pattern=<keyword> path=~/.hermes/notes target=content`.
 ### Web Scraper FT Project (user building this)
 - User created FT data for coding specialization using Claude Sonnet 4.6 (thinking/high)
 - Topic: Web scraper (Playwright + auto-retry + CF bypass + state persistence)
-- Pattern: 4 managers (Browser, Retry, Cloudflare, State) + WebScraper Facade
+- Pattern: 4 managers (Browser, Retry, [[Cloudflare]], State) + WebScraper Facade
 - Key patterns: Circuit Breaker, Atomic Write, Stealth Patches, Exponential Backoff
 - 2023-era techniques — modern CF (2025-26) requires Turnstile v3 + behavioral + TLS workarounds
 - Full reference: see skill `web-scraper-expert` (auto-loads on relevant topics)

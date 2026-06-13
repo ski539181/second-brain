@@ -19,7 +19,7 @@
 - Dry-run mode
 
 ### 3. consistency_check.py (5.5KB)
-- 6 system checks (memory→notes pointers, notes, kanban, cron, skills, cache)
+- 6 system checks ([[Memory]]→notes pointers, notes, kanban, [[Cron]], skills, cache)
 - Skill asset dir awareness (no false positives)
 - Cache freshness check
 - Issue categorization
@@ -38,7 +38,7 @@
 | Dry-run mode | ✅ all 3 | ❌ |
 
 ## Crons installed
-- `b731b111a2a5` FTScraper daily 6 AM
+- `b731b111a2a5` [[FTScraper]] daily 6 AM
 - `efee4687c5f6` Kanban groom daily 3 AM
 - `cd6c2698c05d` Consistency check Sun 22:00
 

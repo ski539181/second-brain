@@ -10,12 +10,12 @@
 States: new → learning → reviewing → mastered
 
 ### 2. Reflection Journal (`reflection.py`)
-- Auto-generates daily journal entry
+- Auto-generates [[Daily]] journal entry
 - Format: what I did, what worked, what failed, lessons, next actions
-- Saved to `~/.hermes/journal/{date}.md`
+- Saved to `~/.[[Hermes]]/journal/{date}.md`
 
 ### 3. Metrics Dashboard (`metrics.py`)
-- Aggregates: practice, journal, tokens, notes, cron, skills, scripts
+- Aggregates: practice, journal, tokens, notes, [[Cron]], skills, scripts
 - Overall learning score (0-100)
 - Saved to `~/.hermes/cache/metrics.json`
 

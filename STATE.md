@@ -3,7 +3,7 @@
 > 📖 **อ่านอันนี้ก่อนเริ่ม** — ถ้าคุณเป็น model ใหม่ที่เพิ่งเข้ามา อ่านไฟล์นี้ก่อน 1 read = รู้ "ภาพรวม" ทันที
 > ไฟล์นี้ถูก optimize ให้อ่านเร็ว + ใช้ token น้อย — bullet เป็นหลัก ไม่มี prose เยิ่นเย้อ
 
-<!-- LAST_RUN: 21:35 2026-06-13 (TH) | Cron: 03862d9aeaac | Kanban: 0 active | Effort: low -->
+<!-- LAST_RUN: 05:58 2026-06-14 (TH) | Cron: 03862d9aeaac | Kanban: 1 active | Effort: low -->
 
 ---
 
@@ -25,7 +25,7 @@
 ## 🔧 System
 
 - **Hermes** (built-in Kanban = SQLite-backed)
-- **Provider:** TokenRouter (custom OpenAI-compatible) — `https://api.tokenrouter.com/v1`
+- **Provider:** [[TokenRouter]] (custom OpenAI-compatible) — `https://api.tokenrouter.com/v1`
 - **Cache:** ❌ ไม่ support `cache_control` (verified ใน `run_agent.py`) — ใช้ skills แทน
 - **Local proxy:** `127.0.0.1:8400` (อาจไม่ listen — verify ก่อนใช้)
 - **API key:** masked ในทุก output — ใช้ Hermes internal เท่านั้น
@@ -43,7 +43,7 @@
 
 ---
 
-## 🧠 Memory Architecture
+## 🧠 [[Memory]] Architecture
 
 | Layer | Size | Injected? | Purpose |
 |---|---|---|---|

@@ -17,7 +17,7 @@
 - สร้าง `reapply_hermes_reasoning.sh` (กัน Hermes update)
 - สร้าง `monitor_cron_effort.py` (track effort usage)
 - สร้าง `~/.hermes/notes/ai-knowledge.md` (10 insights จาก Karpathy 17)
-- Memory update: pointer → `notes/ai-knowledge.md`
+- [[Memory]] update: pointer → `notes/ai-knowledge.md`
 - Crons updated: เพิ่ม Quality Rules (verify facts, specific, iterate)
 
 **🆕 Artifacts (5):**
@@ -36,7 +36,7 @@
 **🔗 References:**
 - 17 YouTube IDs: `notes/ai-knowledge.md`
 - System state: `notes/STATE.md`
-- Feedback: `notes/cron-decisions.md`
+- Feedback: `notes/[[Cron]]-decisions.md`
 
 ---
 
@@ -75,7 +75,7 @@
 - Research CF bypass tools (2025-26)
 - Verdict: `patchright-nodejs` = drop-in fix ≤1 ชม.
 - Brief 5.8KB ใน `notes.md`
-- Refreshed `web-scraper-expert` skill
+- Refreshed `web-scraper-expert` [[Skill]]
 - เพิ่ม Migration Checklist 5 steps
 
 **📚 Lessons:**

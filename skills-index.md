@@ -2,7 +2,7 @@
 
 | Skill | Purpose | Trigger |
 |-------|---------|---------|
-| `orchestrator` | Cross-system sync (memory/notes/kanban/cron/skills) | "silo", "sync", "consolidate" |
+| `[[Orchestrator]]` | Cross-system sync ([[Memory]]/notes/kanban/[[Cron]]/skills) | "silo", "sync", "consolidate" |
 | `speed-toolbox` | 30x speedup via PTC + parallel + bash pipeline | "เร็ว", "faster", "speedup" |
 | `hermes-context-management` | Context window tuning | "memory too big", "running out of tokens" |
 | `hermes-provider-configuration` | Provider/model config errors | "Unknown provider" |

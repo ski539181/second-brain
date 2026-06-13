@@ -1,4 +1,4 @@
-# Hermes Patch — Forward `reasoning_effort` to TokenRouter (M3)
+# [[Hermes]] Patch — Forward `reasoning_effort` to [[TokenRouter]] (M3)
 
 **Status:** PREPARED, NOT APPLIED — review diff + run `apply.sh` to install
 
@@ -80,7 +80,7 @@
 python3 ~/.hermes/scripts/auto_reasoning.py "your prompt"
 ```
 
-**For crons:** Restructure cron to call auto_reasoning.py first, then use result in Hermes prompt.
+**For crons:** Restructure [[Cron]] to call auto_reasoning.py first, then use result in Hermes prompt.
 - Pros: No patch, no risk, opt-in per cron
 - Cons: Cron becomes 2-step (script + Hermes with answer)
 

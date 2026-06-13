@@ -20,7 +20,7 @@
 - [ ] error logs มี context (URL, attempt, stack)
 - [ ] 4xx errors (400, 401, 403, 404) **ไม่ retry**
 
-## 🛡️ Cloudflare
+## 🛡️ [[Cloudflare]]
 - [ ] stealth script inject ทุก page (addInitScript)
 - [ ] CF detection selectors อัพเดต + ครอบคลุม
 - [ ] 2captcha API key ผ่าน env (ไม่ hardcode)
@@ -72,7 +72,7 @@
 - [ ] test **SIGINT** (Ctrl+C → state saved)
 - [ ] test **circuit breaker** (mock failing endpoint)
 - [ ] test **404 / 500** (skip vs retry behavior)
-- [ ] test **memory** (10k URLs → no leak)
+- [ ] test **[[Memory]]** (10k URLs → no leak)
 - [ ] test **disk** (state file corrupted → backup recovery)
 
 ## 📊 Monitoring

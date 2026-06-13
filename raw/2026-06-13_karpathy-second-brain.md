@@ -1,4 +1,4 @@
-# 2026-06-13 — Karpathy Second Brain (Raw Input)
+# 2026-06-13 — [[Karpathy]] [[Second Brain]] (Raw Input)
 
 > **Source:** User's text summary of YouTube video `egBoq66lCRc` ("ทำตาม Andrej Karpathy — แค่ 5 นาที AI เก่งขึ้น x10!" by Everyday with Captain)
 > **Type:** User-typed notes (Thai)
@@ -14,7 +14,7 @@
 
 ## 1. การเตรียมโครงสร้าง (Infrastructure)
 ต้องติดตั้ง 2 เครื่องมือหลักที่ทำงานประสานกัน:
-- **Obsidian:** ใช้เป็น "คลังเก็บข้อมูล" (Database) จัดระเบียบด้วยไฟล์ .md (Markdown) [06:42]
+- **[[Obsidian]]:** ใช้เป็น "คลังเก็บข้อมูล" (Database) จัดระเบียบด้วยไฟล์ .md (Markdown) [06:42]
 - **Cursor (หรือ VS Code + Extension):** ใช้เป็น "สมองประมวลผล" (Agent) ที่จะสั่งการ AI ให้จัดการไฟล์ข้างใน Obsidian [07:42]
 
 โครงสร้างโฟลเดอร์ที่ต้องสร้าง:

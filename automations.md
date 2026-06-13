@@ -2,16 +2,16 @@
 
 ## 3 New Automations
 
-| Cron | Schedule | Script | Purpose |
+| [[Cron]] | Schedule | Script | Purpose |
 |------|----------|--------|---------|
 | `b4f84d4ccdf7` | ทุกชั่วโมง | `token_alarm.py` | Alert ถ้า cost > threshold |
 | `2340b2a41c9f` | ทุก 30 นาที | `cron_health.py` | ตรวจ cron jobs ทำงานปกติ |
-| `79e0163d825b` | อาทิตย์ละครั้ง | `auto_skill_create.py` | สร้าง skill auto |
+| `79e0163d825b` | อาทิตย์ละครั้ง | `auto_skill_create.py` | สร้าง [[Skill]] auto |
 
 ## Features (vs 15-20 นาที version)
 
 **Token alarm:**
-- Daily + hourly thresholds (configurable via env)
+- [[Daily]] + hourly thresholds (configurable via env)
 - Trend detection (20% jump vs yesterday)
 - EOD projection
 - Dry-run mode

@@ -1,0 +1,8 @@
+[2026-06-13T19:22:51] kanban-cron sync: {'active_tasks': 0, 'cron_refs': 0, 'orphan_cron': []}
+[2026-06-13T19:23:03] kanban-cron sync: {'active_tasks': 0, 'cron_refs': 0, 'orphan_cron': []}
+[2026-06-13T19:23:03] dedup: no duplicates found
+[2026-06-13T19:23:03] pointers: all valid
+[2026-06-13T19:23:03] kanban-cron sync: {'active_tasks': 0, 'cron_refs': 0, 'orphan_cron': []}
+[2026-06-13T19:23:11] patterns: 5 candidates - ['https://api.tokenrouter.com/v1 (×8072)', 'http://127.0.0.1:8400/v1 (×706)', 'https://api.tokenrouter.com/v1/ (×412)', 'http://127.0.0.1:8400/v1/ (×22)', 'https://opencode.ai/zen/v1 (×12)']
+[2026-06-13T19:27:42] kanban-cron sync: {'active_tasks': 0, 'cron_refs': 0, 'orphan_cron': []}
+[2026-06-13T19:34:31] kanban-cron sync: {'active_tasks': 0, 'cron_refs': 0, 'orphan_cron': []}

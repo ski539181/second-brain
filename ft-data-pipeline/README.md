@@ -1,12 +1,12 @@
 # FT Data Pipeline
 
-Web scraper for FT (fine-tuning) data using **patchright** (Playwright drop-in) with **camoufox** fallback for Cloudflare 2025-26 bypass.
+Web scraper for FT (fine-tuning) data using **patchright** (Playwright drop-in) with **camoufox** fallback for [[Cloudflare]] 2025-26 bypass.
 
 ## Quick Start
 
 ```bash
 npm install
-node WebScraper.js <url> [selector]
+node [[WebScraper]].js <url> [selector]
 ```
 
 ## Why patchright?
@@ -26,7 +26,7 @@ See `WebScraper.js` for the implementation.
 
 ## ✅ Tested
 
-`FTScraper.py` (curl_cffi HTTP fallback) **bypasses nowsecure.nl** (Cloudflare challenge) in ~1.4s on Termux ARM64. No browser binary needed.
+`[[FTScraper]].py` (curl_cffi HTTP fallback) **bypasses nowsecure.nl** (Cloudflare challenge) in ~1.4s on Termux ARM64. No browser binary needed.
 
 ```bash
 pip install curl_cffi

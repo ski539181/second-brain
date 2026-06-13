@@ -1,7 +1,7 @@
 # Speed Toolbox — 30x Speedup (2026-06-13)
 
 ## Source
-https://hermes-agent.nousresearch.com/docs — "Programmatic Tool Calling via execute_code collapses multi-step pipelines into single inference calls"
+https://[[Hermes]]-agent.nousresearch.com/docs — "Programmatic Tool Calling via execute_code collapses multi-step pipelines into single inference calls"
 
 ## 5 techniques (verified benchmark)
 1. **Bash pipelines** — 15x for shell
@@ -19,7 +19,7 @@ https://hermes-agent.nousresearch.com/docs — "Programmatic Tool Calling via ex
 
 ## Implementation
 - `~/.hermes/scripts/speed_toolbox.py` (7.5KB)
-- `~/.hermes/skills/speed-toolbox/SKILL.md` (4.5KB)
+- `~/.hermes/skills/speed-toolbox/[[Skill]].md` (4.5KB)
 
 ## Token cost
 Same per tool, **5-30x fewer inference calls** = faster AND same token cost.

@@ -7,7 +7,7 @@
 | 3 | math_simple | What is 17*24? | `none` | 10.51s | 33 | ✅ |
 | 4 | code_debug | Debug this Python: def add(a,b): return a+b\nprint(add(1,'2') | `medium` | 12.5s | 131 | ✅ |
 | 5 | research | Research tradeoffs between PostgreSQL and MongoDB for high-t | `high` | 106.77s | 1304 | ✅ |
-| 6 | code_refactor | Refactor this 200-line React component to use hooks and spli | `high` | 46.92s | 186 | ✅ |
+| 6 | code_refactor | [[Refactor]] this 200-line React component to use hooks and spli | `high` | 46.92s | 186 | ✅ |
 | 7 | long_th | อธิบายการทำงานของ Transfor | `high` | 90.5s | 153 | ✅ |
 | 8 | ambiguous | What should I do? | `low` | 5.22s | 61 | ✅ |
 | 9 | vague_th | ช่วยหน่อย | `none` | 12.4s | 54 | ✅ |

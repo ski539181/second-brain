@@ -1,6 +1,6 @@
 # Extended Notes — Index
 
-This is the **extended memory** layer. Lives outside the main memory budget.
+This is the **extended [[Memory]]** layer. Lives outside the main memory budget.
 Main memory only stores a pointer to this file; everything else goes here.
 
 ## 🚀 Quick Start (for new models)
@@ -12,13 +12,13 @@ Then come back here for the file index.
 
 ### Core
 - `notes.md` — Second Brain (projects, ideas, opportunities)
-- `STATE.md` — **handoff doc** (system state, cron jobs, gotchas, quick searches)
+- `STATE.md` — **handoff doc** (system state, [[Cron]] jobs, gotchas, quick searches)
 - `cron-decisions.md` — feedback log (auto-created, tracks ✅/❌ from user)
 - `cross.md` — **AI rules** (Second Brain schema — read before processing files)
 - `podcast.md` — **session summary log** (5-10 bullets/session, save tokens)
 - `raw/README.md` — raw inputs structure (read-only, no edits by AI)
 - `ai-knowledge.md` — Karpathy 17 insights (10 actionable rules for LLM use)
-- `tokenrouter-reasoning.md` — M3 + TokenRouter `reasoning_effort` API support (verified)
+- `[[TokenRouter]]-reasoning.md` — M3 + TokenRouter `reasoning_effort` API support (verified)
 
 ### Web Scraper FT Dataset (temporary — ลบเมื่อ FT เสร็จ)
 - `scraper-cheatsheet.md` — quick formulas/patterns

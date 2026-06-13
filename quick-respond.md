@@ -1,12 +1,12 @@
 # Quick Respond — LLM Bypass (2026-06-13)
 
 ## What
-Bypass LLM for mechanical queries (time, memory, cron, etc.). Speed: 100-300x.
+Bypass LLM for mechanical queries (time, [[Memory]], [[Cron]], etc.). Speed: 100-300x.
 
 ## Files
 - `scripts/quick_respond.py` (5.1KB) — Python bypass for 8 query types
 - `scripts/quick_cache.py` (2.8KB) — pre-computed cache (refreshed every 5 min)
-- `skills/quick-respond/SKILL.md` (3KB) — LLM trigger guide
+- `skills/quick-respond/[[Skill]].md` (3KB) — LLM trigger guide
 - `cron: 2dcf7323f555` — refreshes cache every 5 minutes
 
 ## Usage (from LLM)

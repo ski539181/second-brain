@@ -12,13 +12,13 @@
 
 ## 5 layers
 1. **Network lockdown** — 127.0.0.1 only + token auth
-2. **App whitelist** — Obsidian, Settings, Installer / blacklist banking/messages
+2. **App whitelist** — [[Obsidian]], Settings, Installer / blacklist banking/messages
 3. **Rate limit** — 20/min, 200/hr, pause 3s every 5 taps
 4. **AI/SMS/Calls** — DISABLED
 5. **Kill switch** — "หยุด agent" voice command stops
 
 ## Why not used
 - agent-bridge APK build failed (AAPT2 daemon, PROot env issue)
-- libgtk-3 missing on Termux for camoufox (Firefox can't launch)
-- curl_cffi (HTTP-only) is sufficient for FT scraping — no browser needed
+- libgtk-3 missing on [[Termux]] for camoufox (Firefox can't launch)
+- [[curl_cffi]] (HTTP-only) is sufficient for FT scraping — no browser needed
 - This safety system is ready if user deploys agent-bridge to x86_64 server
