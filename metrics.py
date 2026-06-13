@@ -149,6 +149,88 @@ def scripts_metrics():
     return {"total": len(py_files), "total_kb": round(total_bytes / 1024, 1)}
 
 
+def bar(pct, width=20):
+    """Progress bar."""
+    filled = int(width * pct / 100)
+    return "█" * filled + "░" * (width - filled)
+
+
+def print_pretty(metrics):
+    """Pretty Thai output."""
+    p = metrics["practice"]
+    j = metrics["journal"]
+    t = metrics["tokens"]
+    n = metrics["notes"]
+    c = metrics["cron"]
+    sk = metrics["skills"]
+    sc = metrics["scripts"]
+    print(f"📊 ระบบเรียนรู้ของ Hermes — รายงานประจำวัน\n")
+    print("═" * 50)
+    print("\n🎯 ทักษะ (Practice)")
+    print(f"   ฝึกแล้ว:  {p['total']}/45 ข้อ")
+    mastery = p['avg_mastery']
+    print(f"   ความเชี่ยวชาญ: {mastery:>5.1f}% {bar(mastery)}")
+    pr = p.get('pass_rate', 0)
+    print(f"   ทำถูก:  {pr:>5.1f}% {bar(pr)}")
+    print(f"   ครั้งที่ลอง: {p['attempts']} | ทำผ่าน: {p['passes']}")
+    explain = {
+        "new": "ยังไม่เคยลอง",
+        "learning": "กำลังเรียนรู้ (ฝึกบ่อย)",
+        "reviewing": "ทบทวน (ทุก 3 วัน)",
+        "mastered": "เชี่ยวชาญแล้ว (ทุก 14 วัน)",
+    }
+    status_parts = [f"{explain.get(s, s)} {n}" for s, n in p['by_status'].items()]
+    print(f"   สถานะ: {', '.join(status_parts)}")
+
+    print("\n📔 บันทึกการเรียนรู้ (Journal)")
+    print(f"   บันทึกทั้งหมด: {j['total']} รายการ")
+    print(f"   สัปดาห์นี้: {j['this_week']} รายการ")
+    print(f"   ล่าสุด: {j['last'] or 'ยังไม่มี'}")
+
+    print("\n💰 การใช้ tokens")
+    print(f"   บันทึกไว้: {t['tracked_days']} วัน")
+    print(f"   วันนี้: {t['total_today']:,} tokens")
+    print(f"   สัปดาห์นี้: {t['week_total']:,} tokens")
+    cost = t['week_total'] * 0.00021 / 1000
+    print(f"   ค่าใช้จ่าย (ประมาณ): ${cost:.4f}")
+
+    print("\n📝 คลังความรู้ (Notes)")
+    print(f"   ไฟล์ทั้งหมด: {n['total']} ไฟล์")
+    linked = n['with_wikilinks']
+    linked_pct = linked / n['total'] * 100 if n['total'] else 0
+    print(f"   เชื่อมโยงกัน: {linked}/{n['total']} ({linked_pct:.0f}%) {bar(linked_pct)}")
+    print(f"   ลิงก์เดียวดาย: {n['orphan_links']} ลิงก์")
+
+    print("\n⚙️  ระบบอัตโนมัติ")
+    print(f"   Cron jobs: {c['active']}/{c['total']} ทำงาน")
+    print(f"   Skills: {sk['total']} ตัว")
+    print(f"   Scripts: {sc['total']} ตัว ({sc['total_kb']} KB)")
+
+    print("\n" + "═" * 50)
+    score = 0
+    score += min(50, p['avg_mastery'])
+    score += min(20, j['this_week'] * 5)
+    score += min(15, n['with_wikilinks'])
+    score += min(15, sk['total'])
+    print(f"\n🌟 คะแนนรวม: {score:.1f}/100 {bar(score)}")
+    print(f"   {bar(score)} ← ตำแหน่งปัจจุบัน")
+    print(f"   {'█' * 50} ← เป้า 50/100 (สัปดาห์นี้)")
+
+    print("\n📌 แนะนำทำต่อ:")
+    recs = []
+    if mastery < 50:
+        recs.append(f"1. ฝึก challenges ที่ยังไม่ผ่าน (mastery {mastery:.0f}% → เป้า 50%)")
+    if linked < n['total'] * 0.3:
+        recs.append(f"2. เพิ่ม [[wikilinks]] ใน notes ({linked} → เป้า 30%)")
+    if j['total'] < 7:
+        recs.append("3. เขียน journal ให้ครบ 7 วัน")
+    if not recs:
+        recs.append("✓ ทุกอย่างในเกณฑ์ดี — ทำต่อเพื่อรักษาระดับ")
+    for r in recs:
+        print(f"   {r}")
+    print()
+
+
 def main():
     metrics = {
         "generated_at": datetime.now().isoformat(),
@@ -161,42 +243,12 @@ def main():
         "scripts": scripts_metrics(),
     }
 
-    # Save
     out = CACHE / "metrics.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(metrics, indent=2))
 
-    # Print pretty
-    print(f"📊 Learning Metrics Dashboard — {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
-    print(f"🎯 Practice queue:")
-    p = metrics["practice"]
-    print(f"   Challenges: {p['total']} | Avg mastery: {p['avg_mastery']}% | Pass rate: {p.get('pass_rate', 0)}%")
-    print(f"   By status: {p['by_status']}")
-    print()
-    print(f"📔 Reflection journal:")
-    j = metrics["journal"]
-    print(f"   Total: {j['total']} | This week: {j['this_week']} | Last: {j['last']}")
-    print()
-    print(f"💰 Tokens:")
-    t = metrics["tokens"]
-    print(f"   Tracked days: {t['tracked_days']} | Today: {t['total_today']} | Week: {t['week_total']}")
-    print()
-    print(f"📝 Notes:")
-    n = metrics["notes"]
-    print(f"   Total: {n['total']} | With wikilinks: {n['with_wikilinks']} | Orphan links: {n['orphan_links']}")
-    print()
-    print(f"⏰ Cron: {metrics['cron']['active']}/{metrics['cron']['total']} active")
-    print(f"🧠 Skills: {metrics['skills']['total']}")
-    print(f"🛠️ Scripts: {metrics['scripts']['total']} ({metrics['scripts']['total_kb']} KB)")
-
-    # Improvement score (composite)
-    score = 0
-    score += min(50, p['avg_mastery'])  # up to 50 points
-    score += min(20, j['this_week'] * 5)  # up to 20 points
-    score += min(15, n['with_wikilinks'])  # up to 15 points
-    score += min(15, metrics['skills']['total'])  # up to 15 points
-    print(f"\n🌟 Overall learning score: {score:.0f}/100")
-    print(f"\n📄 Saved: {out}")
+    print_pretty(metrics)
+    print(f"📄 Saved: {out}")
     return 0
 
 
