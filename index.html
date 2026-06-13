@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Second Brain - Knowledge Graph</title>
+<script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+  body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: #0a0a0a; color: #fff; }
+  #header { padding: 12px 16px; background: #1a1a1a; border-bottom: 1px solid #333; }
+  #header h1 { margin: 0; font-size: 18px; }
+  #header p { margin: 4px 0 0; font-size: 12px; color: #888; }
+  #network { width: 100%; height: calc(100vh - 60px); background: #0a0a0a; }
+  #info { position: fixed; bottom: 0; left: 0; right: 0; padding: 12px 16px; background: #1a1a1a; border-top: 1px solid #333; font-size: 12px; display: none; }
+  #info.show { display: block; }
+  #info a { color: #7c3aed; text-decoration: none; }
+</style>
+</head>
+<body>
+<div id="header">
+  <h1>🧠 Second Brain</h1>
+  <p>17 nodes · 47 connections · Karpathy pattern</p>
+</div>
+<div id="network"></div>
+<div id="info">
+  <strong id="info-name"></strong>
+  <p id="info-meta"></p>
+  <a id="info-link" target="_blank">View on GitHub →</a>
+</div>
+<script>
+const nodes = [{"id": "README", "label": "README", "title": "README.md\nSize: 2906 chars\nLinks: 12", "value": 13, "color": "#7c3aed"}, {"id": "notes", "label": "notes", "title": "notes.md\nSize: 9133 chars\nLinks: 4", "value": 5, "color": "#7c3aed"}, {"id": "scraper-checklist", "label": "scraper-checklist", "title": "scraper-checklist.md\nSize: 3784 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "scraper-decision-tree", "label": "scraper-decision-tree", "title": "scraper-decision-tree.md\nSize: 2886 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "scraper-snippets", "label": "scraper-snippets", "title": "scraper-snippets.md\nSize: 10013 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "scraper-cheatsheet", "label": "scraper-cheatsheet", "title": "scraper-cheatsheet.md\nSize: 2346 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "scraper-antipatterns", "label": "scraper-antipatterns", "title": "scraper-antipatterns.md\nSize: 2880 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "STATE", "label": "STATE", "title": "STATE.md\nSize: 5908 chars\nLinks: 10", "value": 11, "color": "#7c3aed"}, {"id": "tokenrouter-reasoning", "label": "tokenrouter-reasoning", "title": "tokenrouter-reasoning.md\nSize: 2167 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "hermes-patch-preview", "label": "hermes-patch-preview", "title": "hermes-patch-preview.md\nSize: 4218 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "auto-reasoning-test", "label": "auto-reasoning-test", "title": "auto-reasoning-test.md\nSize: 1251 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "crons-patch-preview", "label": "crons-patch-preview", "title": "crons-patch-preview.md\nSize: 3233 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}, {"id": "cron-decisions", "label": "cron-decisions", "title": "cron-decisions.md\nSize: 1529 chars\nLinks: 5", "value": 6, "color": "#7c3aed"}, {"id": "ai-knowledge", "label": "ai-knowledge", "title": "ai-knowledge.md\nSize: 4282 chars\nLinks: 3", "value": 4, "color": "#3b82f6"}, {"id": "cross", "label": "cross", "title": "cross.md\nSize: 2393 chars\nLinks: 5", "value": 6, "color": "#7c3aed"}, {"id": "podcast", "label": "podcast", "title": "podcast.md\nSize: 4783 chars\nLinks: 8", "value": 9, "color": "#7c3aed"}, {"id": "config-effort-patch.obsolete", "label": "config-effort-patch.obsolete", "title": "config-effort-patch.obsolete.md\nSize: 1115 chars\nLinks: 0", "value": 1, "color": "#94a3b8"}];
+const edges = [{"from": "README", "to": "STATE", "arrows": "to"}, {"from": "README", "to": "ai-knowledge", "arrows": "to"}, {"from": "README", "to": "cron-decisions", "arrows": "to"}, {"from": "README", "to": "cross", "arrows": "to"}, {"from": "README", "to": "notes", "arrows": "to"}, {"from": "README", "to": "podcast", "arrows": "to"}, {"from": "README", "to": "scraper-antipatterns", "arrows": "to"}, {"from": "README", "to": "scraper-cheatsheet", "arrows": "to"}, {"from": "README", "to": "scraper-checklist", "arrows": "to"}, {"from": "README", "to": "scraper-decision-tree", "arrows": "to"}, {"from": "README", "to": "scraper-snippets", "arrows": "to"}, {"from": "README", "to": "tokenrouter-reasoning", "arrows": "to"}, {"from": "notes", "to": "ai-knowledge", "arrows": "to"}, {"from": "notes", "to": "cron-decisions", "arrows": "to"}, {"from": "notes", "to": "cross", "arrows": "to"}, {"from": "notes", "to": "podcast", "arrows": "to"}, {"from": "STATE", "to": "README", "arrows": "to"}, {"from": "STATE", "to": "cross", "arrows": "to"}, {"from": "STATE", "to": "notes", "arrows": "to"}, {"from": "STATE", "to": "podcast", "arrows": "to"}, {"from": "STATE", "to": "scraper-antipatterns", "arrows": "to"}, {"from": "STATE", "to": "scraper-cheatsheet", "arrows": "to"}, {"from": "STATE", "to": "scraper-checklist", "arrows": "to"}, {"from": "STATE", "to": "scraper-decision-tree", "arrows": "to"}, {"from": "STATE", "to": "scraper-snippets", "arrows": "to"}, {"from": "STATE", "to": "tokenrouter-reasoning", "arrows": "to"}, {"from": "cron-decisions", "to": "README", "arrows": "to"}, {"from": "cron-decisions", "to": "ai-knowledge", "arrows": "to"}, {"from": "cron-decisions", "to": "cross", "arrows": "to"}, {"from": "cron-decisions", "to": "notes", "arrows": "to"}, {"from": "cron-decisions", "to": "podcast", "arrows": "to"}, {"from": "ai-knowledge", "to": "STATE", "arrows": "to"}, {"from": "ai-knowledge", "to": "auto-reasoning-test", "arrows": "to"}, {"from": "ai-knowledge", "to": "tokenrouter-reasoning", "arrows": "to"}, {"from": "cross", "to": "STATE", "arrows": "to"}, {"from": "cross", "to": "ai-knowledge", "arrows": "to"}, {"from": "cross", "to": "cron-decisions", "arrows": "to"}, {"from": "cross", "to": "notes", "arrows": "to"}, {"from": "cross", "to": "podcast", "arrows": "to"}, {"from": "podcast", "to": "README", "arrows": "to"}, {"from": "podcast", "to": "STATE", "arrows": "to"}, {"from": "podcast", "to": "ai-knowledge", "arrows": "to"}, {"from": "podcast", "to": "cron-decisions", "arrows": "to"}, {"from": "podcast", "to": "crons-patch-preview", "arrows": "to"}, {"from": "podcast", "to": "cross", "arrows": "to"}, {"from": "podcast", "to": "hermes-patch-preview", "arrows": "to"}, {"from": "podcast", "to": "notes", "arrows": "to"}];
+const container = document.getElementById('network');
+const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+const options = {
+  nodes: { shape: 'dot', font: { color: '#fff', size: 14 }, borderWidth: 2 },
+  edges: { color: { color: '#444', highlight: '#7c3aed' }, width: 1, smooth: { type: 'continuous' } },
+  physics: { stabilization: { iterations: 200 }, barnesHut: { gravitationalConstant: -3000, springLength: 120 } },
+  interaction: { hover: true, tooltipDelay: 100, zoomView: true, dragView: true }
+};
+const network = new vis.Network(container, data, options);
+network.on('click', (params) => {
+  if (params.nodes.length > 0) {
+    const id = params.nodes[0];
+    const info = document.getElementById('info');
+    document.getElementById('info-name').textContent = id + '.md';
+    document.getElementById('info-meta').textContent = 'Click to view on GitHub';
+    document.getElementById('info-link').href = 'https://github.com/ski539181/second-brain/blob/main/' + id + '.md';
+    document.getElementById('info-link').textContent = 'View ' + id + '.md →';
+    info.classList.add('show');
+  } else {
+    document.getElementById('info').classList.remove('show');
+  }
+});
+</script>
+</body>
+</html>
