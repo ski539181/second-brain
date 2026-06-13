@@ -253,11 +253,14 @@ import asyncio
 counter = 0
 async def inc():
     global counter
-    await asyncio.sleep(0)
-    counter += 1
+    # Race-prone: read, await, write
+    temp = counter
+    await asyncio.sleep(0.001)  # gives other tasks a chance
+    counter = temp + 1
 async def main():
-    await asyncio.gather(*[inc() for _ in range(100)])
-    print(counter)  # < 100, not 100
+    await asyncio.gather(*[inc() for _ in range(50)])
+asyncio.run(main())
+print(counter)  # < 50, lost updates!
 ```
 **Hint:** `+=` is read-modify-write, not atomic.
 **Solution:** `asyncio.Lock` or use `asyncio.Semaphore`.
