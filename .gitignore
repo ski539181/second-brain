@@ -1,0 +1,8 @@
+# secrets
+*.token
+*.key
+.env
+# binaries
+*.bin
+*.pyc
+__pycache__/
