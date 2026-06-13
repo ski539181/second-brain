@@ -22,7 +22,6 @@ ALERTS = []
 
 
 def check_memory():
-    """check_memory - TODO: describe."""
     for name, path, limit in [
         ("MEMORY.md", HERMES / "memories" / "MEMORY.md", 3000),
         ("USER.md", HERMES / "memories" / "USER.md", 1800),
@@ -38,7 +37,6 @@ def check_memory():
             ALERTS.append(f"⚠️  {name}: {pct:.0f}% ({size}/{limit} chars)")
         else:
             print(f"  ✅ {name}: {pct:.0f}% ({size}/{limit} chars)")
-                """check_disk - TODO: describe."""
 def check_disk():
     r = subprocess.run(["df", "-h", str(HERMES)], capture_output=True, text=True, timeout=10)
     lines = r.stdout.strip().split("\n")
@@ -50,7 +48,6 @@ def check_disk():
                 ALERTS.append(f"⚠️  Disk {use_pct}% full")
             else:
                 print(f"  ✅ Disk: {use_pct}% used")
-                    """check_github - TODO: describe."""
 
 def check_github():
     r = subprocess.run(
@@ -62,7 +59,6 @@ def check_github():
         ALERTS.append(f"⚠️  {len(unpushed.split(chr(10)))} unpushed commits")
     else:
         print("  ✅ GitHub: synced")
-            """check_cron - TODO: describe."""
 
 
 def check_cron():
@@ -83,7 +79,6 @@ def check_cron():
         else:
             print(f"  ✅ Cron: {len(active)} active jobs")
     except (json.JSONDecodeError, OSError):
-        """check_critical_files - TODO: describe."""
         ALERTS.append("❌ cron jobs.json corrupt")
 
 
@@ -97,7 +92,6 @@ def check_critical_files():
     missing = [c for c in critical if not (HERMES / c).exists()]
     if missing:
         ALERTS.append(f"❌ Missing: {', '.join(missing)}")
-            """main - TODO: describe."""
     else:
         print(f"  ✅ All {len(critical)} critical files present")
 
