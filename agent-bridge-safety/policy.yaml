@@ -1,0 +1,99 @@
+# agent-bridge Safety Policy
+# Editable whitelist/blacklist — restart service after changes
+
+# ===== NETWORK LOCKDOWN =====
+network:
+  bind_address: "127.0.0.1"      # Localhost only — no external access
+  port: 8765
+  require_token: true             # Token auth required
+  token: "b9d27fb6c552f1dbd2676655f14bfe06"  # Generate: openssl rand -hex 16
+  reject_external: true           # Hard reject any non-localhost connection
+
+# ===== APP WHITELIST (only these apps accessible) =====
+# Leave empty = allow all. Add apps to restrict.
+whitelist_apps:
+  - "md.obsidian"                 # Obsidian (main use)
+  - "com.android.settings"        # Settings (for enabling accessibility)
+  - "com.android.packageinstaller"  # APK installer
+
+# ===== APP BLACKLIST (NEVER touch these) =====
+blacklist_apps:
+  - "com.android.contacts"
+  - "com.android.phone"
+  - "com.android.mms"
+  - "com.google.android.apps.messaging"
+  - "com.whatsapp"
+  - "com.facebook.orca"
+  - "com.linecorp.line"
+  - "jp.naver.line.android"
+  - "com.google.android.gm"        # Gmail
+  - "com.microsoft.office.outlook"
+  - "com.banking.*"                # All banking apps (glob)
+  - "com.password.*"               # All password managers
+  - "com.authy"                    # 2FA
+  - "com.google.android.apps.authenticator2"
+
+# ===== ACTION LIMITS =====
+rate_limits:
+  max_taps_per_minute: 20
+  max_taps_per_hour: 200
+  max_actions_per_session: 100
+  cooldown_after_n_taps: 5          # Pause N seconds after 5 taps
+  cooldown_seconds: 3
+
+# ===== DESTRUCTIVE ACTION BLOCK =====
+# These keywords in UI text = auto-pause + require manual confirm
+destructive_keywords:
+  - "delete"
+  - "remove"
+  - "uninstall"
+  - "format"
+  - "wipe"
+  - "factory reset"
+  - "ลบ"
+  - "ลบไฟล์"
+  - "ถอนการติดตั้ง"
+  - "ล้าง"
+
+# Require explicit confirm before these UI buttons:
+require_confirm_buttons:
+  - "Delete"
+  - "Remove"
+  - "Uninstall"
+  - "Format"
+  - "Reset"
+  - "ลบ"
+  - "ถอนการติดั้ง"
+  - "Reset"
+
+# ===== AI BRAIN DISABLED =====
+# agent-bridge has AI auto-reply feature — DISABLE completely
+ai_brain:
+  enabled: false                   # ❌ No AI auto-decision
+  openrouter_api_key: ""           # Empty = no API calls
+  allow_auto_reply: false          # ❌ No auto-reply messages
+  allow_sms: false                 # ❌ No SMS
+  allow_calls: false               # ❌ No phone calls
+
+# ===== LOGGING =====
+logging:
+  log_all_actions: true            # Log every tap/swipe
+  log_screenshots: true            # Save before/after screenshot
+  log_dir: "/root/.hermes/agent-bridge-safety/logs"
+  max_log_size_mb: 100
+  rotate_logs: true
+  include_timestamp: true
+  include_ui_dump: false           # Don't save full UI dump (sensitive)
+
+# ===== NOTIFICATION ON EVERY ACTION =====
+notifications:
+  enabled: true
+  show_overlay: true               # Show "agent-bridge: tapping Obsidian..." overlay
+  vibrate_on_action: true           # Vibrate on each tap
+  notify_external: false           # No Telegram/email notification
+
+# ===== KILL SWITCH =====
+emergency:
+  kill_switch_keyword: "STOP_AGENT_BRIDGE_NOW"
+  kill_switch_phrase: "หยุด agent"  # User types this anywhere = halt
+  auto_kill_after_idle_minutes: 30 # Auto-stop if no activity 30 min
