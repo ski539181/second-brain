@@ -50,11 +50,17 @@ def _get_token_estimate(text: str) -> int:
     return max(1, len(text) // 4)
 
 
-def llm_call(prompt, max_tokens=300, effort="low", timeout=30):
+def llm_call(prompt, max_tokens=300, effort="low", timeout=30, compress_auto=True):
     """
     Call TokenRouter M3. Returns text or None on error.
     cost: ~$0.0001/call at low effort.
+
+    Auto-compresses with headroom if prompt > 500 chars (compress_auto=True).
     """
+    # Auto-route to headroom compression for large prompts
+    if compress_auto and len(prompt) > 500:
+        result, stats = llm_call_hr(prompt, max_tokens, effort, timeout)
+        return result
     if not KEY_FILE.exists():
         return None
     api_key = KEY_FILE.read_text().strip()
