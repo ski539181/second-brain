@@ -37,6 +37,7 @@ def check_memory():
             ALERTS.append(f"⚠️  {name}: {pct:.0f}% ({size}/{limit} chars)")
         else:
             print(f"  ✅ {name}: {pct:.0f}% ({size}/{limit} chars)")
+
 def check_disk():
     r = subprocess.run(["df", "-h", str(HERMES)], capture_output=True, text=True, timeout=10)
     lines = r.stdout.strip().split("\n")
@@ -48,6 +49,7 @@ def check_disk():
                 ALERTS.append(f"⚠️  Disk {use_pct}% full")
             else:
                 print(f"  ✅ Disk: {use_pct}% used")
+
 
 def check_github():
     r = subprocess.run(
