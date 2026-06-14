@@ -20,3 +20,4 @@ User feedback (✅/❌/🔇) for tasks created by CEO Loop.
    - Cleanup: config-effort-patch.md → .obsolete.md, marked 2 patch previews as APPLIED
    - Memory: still 98% — uses notes/ instead
    - Verify: config still = low, api_key intact, structure has 6/6 Second Brain files
+[2026-06-14 07:03] 🤖 auto-exec: t_e0b7a931 (lead-magnet post: Playwright→patchright) — pending 30+ hours, user sleeping, no ❌ in feedback log, code already shipped (t_5d3558be done 19:00 6/13). Draft: ~/.hermes/notes/lead-magnet-patchright.md (5.8KB, 902 words). Awaiting user review.
