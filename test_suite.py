@@ -25,7 +25,14 @@ TESTS = [
     {
         "name": "healthcheck",
         "script": "healthcheck.py",
+        "args": [    {
+        "name": "pst_memory",
+        "script": "pst_memory.py",
         "args": [],
+        "expect": "Persistent Memory",
+        "timeout": 10,
+    },
+],
         "expect": "HERMES HEALTH CHECK",
         "timeout": 15,
         "allow_exit_1": True,  # alerts = exit 1
@@ -117,9 +124,30 @@ TESTS = [
     {
         "name": "vector_memory",
         "script": "vector_memory.py",
+        "args": ["--llm"],
+        "expect": "Test searches:",
+        "timeout": 60,
+    },
+    {
+        "name": "hll_stats",
+        "script": "hll_stats.py",
         "args": [],
-        "expect": "Test searches",
+        "expect": "unique tokens",
         "timeout": 30,
+    },
+    {
+        "name": "merkle_notes",
+        "script": "merkle_notes.py",
+        "args": [],
+        "expect": "Root:",
+        "timeout": 30,
+    },
+    {
+        "name": "rope_text",
+        "script": "rope_text.py",
+        "args": ["memory"],
+        "expect": "Rope History",
+        "timeout": 10,
     },
 ]
 
