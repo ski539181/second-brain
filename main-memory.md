@@ -1,4 +1,4 @@
-# Main Memory
+# Main [[Memory]]
 
 System prompt และ persistent context
 

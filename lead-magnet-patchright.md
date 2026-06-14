@@ -1,4 +1,4 @@
-# Playwright โดน Cloudflare บล็อกปี 2026? เปลี่ยนเป็น patchright ใน 5 นาที
+# Playwright โดน [[Cloudflare]] บล็อกปี 2026? เปลี่ยนเป็น patchright ใน 5 นาที
 
 > **Lead magnet** — draft for Supakit's web-scraper audience (CF 2025-26 era)
 > Source: `~/.hermes/notes/notes.md` (Cloudflare 2025-26 Bypass Brief, L46-142)
@@ -62,7 +62,7 @@ npm install patchright
 npx patchright install chromium  # download patched binary (~170MB)
 
 # 3. แก้ import (1 line)
-#    ในไฟล์ WebScraper.js / scraper.js ของคุณ
+#    ในไฟล์ [[WebScraper]].js / scraper.js ของคุณ
 sed -i "s/from 'playwright'/from 'patchright'/g" scraper.js
 
 # 4. ทดสอบ
@@ -121,7 +121,7 @@ node scraper.js https://nowsecure.nl  # real CF challenge
 - Code change: 1 line (import)
 - Binary size: +170MB (patchright's custom Chromium)
 
-ถ้า scraper ของคุณรันบน **ARM64 (Termux, Apple Silicon dev, Raspberry Pi)** — patchright จะ fail เพราะไม่มี Chromium ARM build. ใช้ `FTScraper.py` (curl_cffi) เป็น HTTP-only fallback แทน — bypass nowsecure.nl ได้ใน 1.4s โดยไม่ต้อง browser binary เลย
+ถ้า scraper ของคุณรันบน **ARM64 (Termux, Apple Silicon dev, Raspberry Pi)** — patchright จะ fail เพราะไม่มี Chromium ARM build. ใช้ `[[FTScraper]].py` (curl_cffi) เป็น HTTP-only fallback แทน — bypass nowsecure.nl ได้ใน 1.4s โดยไม่ต้อง browser binary เลย
 
 ---
 

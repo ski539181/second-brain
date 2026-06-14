@@ -13,11 +13,20 @@ Output: ~/.hermes/session_insights/{date}.md
 import json
 import re
 import subprocess
+import sys
 from collections import Counter
 from datetime import datetime, timedelta
 from pathlib import Path
 
 HERMES = Path.home() / ".hermes"
+
+# Optional LLM support
+try:
+    sys.path.insert(0, str(HERMES / "scripts"))
+    from llm_helper import llm_call
+    HAS_LLM = True
+except Exception:
+    HAS_LLM = False
 NOTES = HERMES / "notes"
 LOGS = HERMES / "logs"
 INSIGHTS_DIR = HERMES / "session_insights"
@@ -121,6 +130,20 @@ def suggest_actions(recurring, gaps):
     return actions
 
 
+def llm_synthesize_topics(recurring, gaps, existing_notes):
+    """Use LLM to find deeper topic connections (~$0.0001)."""
+    rec_str = ", ".join(f"{t}(×{c})" for t, c in recurring)
+    gap_str = ", ".join(f"'{t}'" for t, c in gaps) if gaps else "none"
+    note_str = ", ".join(existing_notes[:10])
+    prompt = f"""Recurring topics user asks: {rec_str}
+Knowledge gaps (no note yet): {gap_str}
+Existing notes: {note_str}
+
+What 1-2 patterns connect these? What's the most valuable next note to write?
+Be concise, actionable, Thai/English mix, max 80 words."""
+    return llm_call(prompt, max_tokens=200)
+
+
 def main():
     print(f"🌐 Cross-Session Analysis — {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
     
@@ -179,6 +202,14 @@ def main():
             md += f"- {a}\n"
     else:
         md += "_(no immediate actions needed)_\n"
+
+    # LLM synthesis — find deeper connections
+    if HAS_LLM and "--llm" in sys.argv and recurring:
+        # note_titles might be a set
+        nt_list = list(note_titles) if not isinstance(note_titles, list) else note_titles
+        synth = llm_synthesize_topics(recurring[:5], gaps[:3], nt_list[:10])
+        if synth:
+            md += f"\n## 🤖 LLM Cross-Session Synthesis\n\n{synth}\n"
     out_md.write_text(md)
     
     out_json = INSIGHTS_DIR / f"{datetime.now().strftime('%Y-%m-%d')}.json"

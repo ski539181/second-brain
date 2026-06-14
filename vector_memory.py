@@ -12,6 +12,7 @@ No downloads, no models, 0 dependencies.
 import json
 import math
 import re
+import sys
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -21,6 +22,14 @@ NOTES = HERMES / "notes"
 CACHE = HERMES / "cache"
 VECTOR_DIR = CACHE / "vector_memory"
 VECTOR_DIR.mkdir(parents=True, exist_ok=True)
+
+# Optional LLM support — for note summarization
+try:
+    sys.path.insert(0, str(HERMES / "scripts"))
+    from llm_helper import llm_call
+    HAS_LLM = True
+except Exception:
+    HAS_LLM = False
 
 STOP_WORDS = set("""
 a an the and or but if then else for to of in on at by with from
@@ -173,6 +182,23 @@ def search(query, limit=5, index=None):
     return results[:limit]
 
 
+def llm_summarize_note(filename):
+    """Use LLM to generate 1-sentence summary of a note (~$0.0001)."""
+    path = NOTES / filename
+    if not path.exists():
+        return None
+    try:
+        text = path.read_text()[:1500]
+    except Exception:
+        return None
+    prompt = f"""Summarize this note in 1 sentence (max 25 words), Thai/English OK:
+
+{text}
+
+Summary:"""
+    return llm_call(prompt, max_tokens=60)
+
+
 def main():
     print(f"🧠 Vector Memory (TF-IDF) — {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
 
@@ -193,6 +219,16 @@ def main():
         print(f"  • '{q}': {len(results)} hits")
         for r in results[:2]:
             print(f"    - {r['title']} (score: {r['score']:.3f})")
+
+    # LLM mode: enrich top results with summaries (--llm flag)
+    if HAS_LLM and "--llm" in sys.argv:
+        print(f"\n🤖 LLM Enrichment:")
+        for q in test_queries[:2]:  # just top 2 to save tokens
+            results = search(q, limit=2, index=index)
+            for r in results[:1]:
+                summary = llm_summarize_note(r["file"])
+                if summary:
+                    print(f"  • '{q}' → {r['title'][:30]}: {summary[:80]}")
 
     # Save stats
     stats = {

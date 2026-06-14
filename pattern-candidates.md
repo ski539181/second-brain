@@ -1,4 +1,4 @@
-# Pattern Candidates for Skill Promotion
+# Pattern Candidates for [[Skill]] Promotion
 
 Generated: 2026-06-14T02:00:45.964489
 

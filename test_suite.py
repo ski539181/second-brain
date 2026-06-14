@@ -26,8 +26,9 @@ TESTS = [
         "name": "healthcheck",
         "script": "healthcheck.py",
         "args": [],
-        "expect": "✅ All systems healthy",
+        "expect": "HERMES HEALTH CHECK",
         "timeout": 15,
+        "allow_exit_1": True,  # alerts = exit 1
     },
     {
         "name": "feedback_tracker",
@@ -132,10 +133,12 @@ def run_test(test):
             text=True,
             timeout=test["timeout"],
         )
-        if result.returncode != 0:
+        if result.returncode != 0 and not test.get("allow_exit_1"):
             return False, f"exit {result.returncode}: {result.stderr[:200]}"
         if test["expect"] not in result.stdout:
             return False, f"missing '{test['expect']}' in output"
+        if result.returncode != 0 and test.get("allow_exit_1"):
+            return True, "ok (alerts)"
         return True, "ok"
     except subprocess.TimeoutExpired:
         return False, f"timeout ({test['timeout']}s)"

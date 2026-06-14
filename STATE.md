@@ -3,7 +3,7 @@
 > 📖 **อ่านอันนี้ก่อนเริ่ม** — ถ้าคุณเป็น model ใหม่ที่เพิ่งเข้ามา อ่านไฟล์นี้ก่อน 1 read = รู้ "ภาพรวม" ทันที
 > ไฟล์นี้ถูก optimize ให้อ่านเร็ว + ใช้ token น้อย — bullet เป็นหลัก ไม่มี prose เยิ่นเย้อ
 
-<!-- LAST_RUN: 09:16 2026-06-14 (TH) | Cron: 03862d9aeaac | Kanban: 1 active | Effort: medium -->
+<!-- LAST_RUN: 03:21 2026-06-14 (TH) | Cron: 03862d9aeaac | Kanban: 1 active | Effort: low -->
 
 ---
 

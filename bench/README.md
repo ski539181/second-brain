@@ -1,6 +1,6 @@
 # Patchright vs Playwright Benchmark
 
-**Goal:** Hard numbers to decide which library to use for the FT data product (Cloudflare bypass).
+**Goal:** Hard numbers to decide which library to use for the FT data product ([[Cloudflare]] bypass).
 
 **Why:** Supakit blocked on "ต้องเห็นข้อมูลจริงก่อน ship" — uncertainty = blocker.
 
@@ -8,7 +8,7 @@
 
 ```bash
 # 1. Install (one-time)
-cd ~/.hermes/notes/bench
+cd ~/.[[Hermes]]/notes/bench
 node benchmark-setup.js
 
 # 2. Run benchmark
@@ -41,7 +41,7 @@ bench/results-<timestamp>.md    — summary + verdict
 
 ## Notes
 
-- **Termux ARM64:** may fail with `libgtk-3 missing`. Run on Mac/Linux x64.
+- **[[Termux]] ARM64:** may fail with `libgtk-3 missing`. Run on Mac/Linux x64.
 - **Headless mode:** both tested headless=true (no display needed).
 - **Same UA:** both use realistic Chrome 120 UA to compare fairly.
 - **Timeout:** 30s/page (CF challenge can take time).
