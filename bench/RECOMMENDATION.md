@@ -1,6 +1,6 @@
-# Patchright vs Playwright Benchmark — Recommendation
+# [[Patchright]] vs Playwright Benchmark — Recommendation
 
-**Date:** 2026-06-14 | **Environment:** Termux ARM64 (libgtk-3 missing)
+**Date:** 2026-06-14 | **Environment:** [[Termux]] ARM64 (libgtk-3 missing)
 
 ## Result Summary
 
@@ -21,7 +21,7 @@ Based on **verified bypasses** in this environment:
 
 | Use Case | Pick | Why |
 |----------|------|-----|
-| **Cloudflare bypass** | Patchright ⭐ | Better fingerprinting (designed for this) |
+| **[[Cloudflare]] bypass** | Patchright ⭐ | Better fingerprinting (designed for this) |
 | **General scraping** | Playwright | More stable, bigger community |
 | **Nowsecure.nl** | curl_cffi | Termux-friendly, 1.4s verified |
 | **Quick HTTP** | curl_cffi | No browser overhead |
