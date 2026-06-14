@@ -15,7 +15,7 @@ function computeDelay(attempt, base = 1000, mult = 2, jitter = 1000, max = 30000
 ```javascript
 import fs from "fs/promises";
 
-async function atomicWrite(path, data) {
+async function atomicWrite(path, [[data]]) {
   const tmp = `${path}.tmp`;
   const backup = `${path}.backup`;
   await fs.writeFile(tmp, JSON.stringify(data, null, 2));
@@ -139,7 +139,7 @@ class CircuitBreaker {
       this.timer = setTimeout(() => {
         this.open = false;
         this.failures = 0;
-        console.log("🟡 Circuit HALF-OPEN");
+        console.[[log]]("🟡 Circuit HALF-OPEN");
       }, this.resetMs);
     }
   }
