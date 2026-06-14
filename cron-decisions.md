@@ -20,4 +20,9 @@ User feedback (✅/❌/🔇) for tasks created by CEO Loop.
    - Cleanup: config-effort-patch.md → .obsolete.md, marked 2 patch previews as APPLIED
    - Memory: still 98% — uses notes/ instead
    - Verify: config still = low, api_key intact, structure has 6/6 Second Brain files
+[2026-06-14 09:16] 🤖 auto-created: t_bench_20260614 (patchright vs Playwright benchmark) — ceo-loop-5
+   - Rationale: เมื่อวาน review priority = "apply patchright แต่ต้องเห็นข้อมูลจริงก่อน" — uncertainty blocker
+   - Value: #2 (time saving) + unlocks #1 (revenue path ของ FT data product)
+   - Not duplicate: t_e0b7a931 (lead-magnet post) แยกคนละชิ้น
+   - Awaiting: ✅/❌/🔇 from user
 [2026-06-14 07:03] 🤖 auto-exec: t_e0b7a931 (lead-magnet post: Playwright→patchright) — pending 30+ hours, user sleeping, no ❌ in feedback log, code already shipped (t_5d3558be done 19:00 6/13). Draft: ~/.hermes/notes/lead-magnet-patchright.md (5.8KB, 902 words). Awaiting user review.

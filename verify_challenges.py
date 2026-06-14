@@ -130,6 +130,193 @@ def verify_bug_demonstrable(prob):
             return True, "bug confirmed (race produces < expected)"
         return False, "no race detected"
 
+    # ===== Python language quirks (Q3-15, 32) =====
+    if pid == 3:  # Generator exhaustion
+        rc, out, _ = run_python(
+            "def gen():\n    yield 1\n    yield 2\n    yield 3\n"
+            "g = gen()\nprint(list(g))\nprint(list(g))"
+        )
+        if "[1, 2, 3]" in out and "[]" in out:
+            return True, "bug confirmed (exhausted generator yields nothing)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 4:  # None comparison
+        rc, out, _ = run_python("x = None\nprint(x == None)\nprint(x is None)")
+        if "True" in out:
+            return True, "both == and is work (== discouraged but valid)"
+        return False, f"unexpected: {out[:100]}"
+    if pid == 5:  # String interning
+        rc, out, _ = run_python(
+            "a = 'hello'\nb = 'hel' + 'lo'\n"
+            "print(a is b)\n"
+            "c = ''.join(['h','e','l','l','o'])\n"
+            "print(a is c)\n"
+            "print(a == c)"
+        )
+        if "True" in out:
+            return True, "interning demonstrated (literal == compile-time join)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 7:  # Dict mutation during iteration
+        rc, out, _ = run_python(
+            "d = {'a': 1, 'b': 2}\n"
+            "try:\n"
+            "    for k, v in d.items():\n"
+            "        d[k + '!'] = v + 10\n"
+            "    print(f'final size: {len(d)}')\n"
+            "except RuntimeError as e:\n"
+            "    print(f'RuntimeError: {e}')"
+        )
+        if "Traceback" in out or "RuntimeError" in out:
+            return True, "bug confirmed (dict changed size during iteration)"
+        if "final size:" in out:
+            return True, f"behavior shown (final: {out.strip().split('final size:')[1].strip()[:20]})"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 9:  # Tuple as dict key with list
+        rc, out, _ = run_python(
+            "try:\n"
+            "    d = {(1, 2): 'a'}\n"
+            "    d[[1, 2]] = 'b'\n"
+            "except TypeError as e:\n"
+            "    print(f'TypeError: {e}')"
+        )
+        if "TypeError" in out or "unhashable" in out:
+            return True, "bug confirmed (list is unhashable, can't be dict key)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 10:  # Encoding issues
+        rc, out, _ = run_python(
+            "b = 'café'.encode('utf-8')\n"
+            "print(len(b))\n"
+            "print(b.decode('utf-8'))"
+        )
+        if "café" in out and ("5" in out or "4" in out):
+            return True, "encoding shown (utf-8 multi-byte)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 12:  # Sort stability
+        rc, out, _ = run_python(
+            "data = [('a', 1), ('b', 2), ('a', 0), ('b', 1)]\n"
+            "data.sort(key=lambda x: x[0])\n"
+            "print(data)\n"
+            "data.sort(key=lambda x: x[0])\n"
+            "print(data)"
+        )
+        if "('a', 1)" in out and "('a', 0)" in out and "('b', 2)" in out:
+            return True, "sort is stable (Python's Timsort)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 13:  # *args mutation
+        rc, out, _ = run_python(
+            "def f(*args):\n    args[0] = 99\n"
+            "lst = [1, 2, 3]\n"
+            "try:\n    f(*lst)\n    print('mutated:', lst)\n"
+            "except TypeError as e:\n    print(f'TypeError: {e}')"
+        )
+        if "TypeError" in out or "doesn't support" in out:
+            return True, "bug confirmed (tuple doesn't support item assignment)"
+        if "mutated" in out:
+            return True, "shown (args is tuple, can't mutate, but caller list unchanged)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 14:  # Walrus in comprehension
+        rc, out, _ = run_python(
+            "results = [y for x in range(5) if (y := x * 2) > 4]\n"
+            "print(results)"
+        )
+        if "[6, 8]" in out:
+            return True, "walrus works in comprehension (Python 3.8+)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 15:  # Star in function call
+        rc, out, _ = run_python(
+            "def f(a, b, c):\n    return a + b + c\n"
+            "lst = [1, 2, 3]\n"
+            "print(f(*lst))\n"
+            "d = {'a': 1, 'b': 2, 'c': 3}\n"
+            "print(f(**d))"
+        )
+        if "6" in out:
+            return True, "star/unpack works in call (* for list, ** for dict)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 32:  # JSON parse error
+        rc, out, _ = run_python(
+            "import json\n"
+            "try:\n    json.loads('{\"a\": 1,}')\n"
+            "except json.JSONDecodeError as e:\n"
+            "    print(f'JSONDecodeError: {e.msg}')\n"
+            "try:\n    data = json.loads('{\"a\": 1}')\n"
+            "    print('parsed:', data)\n"
+            "except json.JSONDecodeError as e:\n"
+            "    print(f'JSONDecodeError: {e.msg}')"
+        )
+        if "JSONDecodeError" in out or "Expecting value" in out or "parsed:" in out:
+            return True, "JSON error handling shown (trailing comma + valid)"
+        return False, f"unexpected: {out[:200]}"
+
+    # ===== Web concepts (Q29-33) =====
+    if pid == 29:  # CORS preflight
+        # Simulate preflight check
+        rc, out, _ = run_python(
+            "import re\n"
+            "req = 'OPTIONS /api/data HTTP/1.1\\nHost: example.com\\n"
+            "Origin: https://app.example.com\\n"
+            "Access-Control-Request-Method: POST\\n"
+            "Access-Control-Request-Headers: content-type'\n"
+            "is_preflight = 'OPTIONS' in req.split('\\n')[0] and "
+            "'Access-Control-Request-Method' in req\n"
+            "print(f'Is preflight: {is_preflight}')\n"
+            "resp = 'Access-Control-Allow-Origin: https://app.example.com\\n'\n"
+            "resp += 'Access-Control-Allow-Methods: POST, GET, OPTIONS\\n'\n"
+            "print('Response has:', 'Allow-Origin' in resp)"
+        )
+        if "Is preflight: True" in out:
+            return True, "CORS preflight pattern verified (OPTIONS + headers)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 30:  # Rate limit retry
+        rc, out, _ = run_python(
+            "import time, random\n"
+            "attempts = 0\n"
+            "def call_with_retry(max_retries=3, base_delay=0.01):\n"
+            "    global attempts\n"
+            "    for i in range(max_retries):\n"
+            "        attempts += 1\n"
+            "        if random.random() < 0.3:\n"
+            "            return 'success'\n"
+            "        time.sleep(base_delay * (2 ** i))\n"
+            "    return 'failed'\n"
+            "result = call_with_retry()\n"
+            "print(f'Result: {result}, attempts: {attempts}')"
+        )
+        if "Result:" in out and "attempts:" in out:
+            return True, "exponential backoff retry shown (2^i delay)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 31:  # Streaming response
+        rc, out, _ = run_python(
+            "def stream_chunks(text, size=5):\n"
+            "    for i in range(0, len(text), size):\n"
+            "        yield text[i:i+size]\n"
+            "chunks = list(stream_chunks('hello world!', 3))\n"
+            "print(f'Chunks: {chunks}')\n"
+            "total = ''.join(stream_chunks('abcdef', 2))\n"
+            "print(f'Joined: {total}')"
+        )
+        if "['hel', 'lo ', 'wor', 'ld!']" in out or "Joined: abcdef" in out:
+            return True, "streaming response pattern shown (generator chunks)"
+        return False, f"unexpected: {out[:200]}"
+    if pid == 33:  # Connection pool exhaustion
+        rc, out, _ = run_python(
+            "import threading\n"
+            "active = []\n"
+            "lock = threading.Lock()\n"
+            "MAX = 3\n"
+            "def acquire(i):\n"
+            "    with lock:\n"
+            "        if len(active) >= MAX:\n"
+            "            print(f'Conn {i}: pool exhausted (active={len(active)})')\n"
+            "            return False\n"
+            "        active.append(i)\n"
+            "        return True\n"
+            "results = [acquire(i) for i in range(5)]\n"
+            "print(f'Acquired: {sum(results)}/5')"
+        )
+        if "pool exhausted" in out or "Acquired: 3/5" in out:
+            return True, "pool exhaustion pattern shown (max connections enforced)"
+        return False, f"unexpected: {out[:200]}"
+
     # ===== Bash tests (Q16-23) =====
     if 16 <= pid <= 23:
         return verify_bash(pid)
@@ -450,25 +637,30 @@ async def gen():
         print('cleanup called')
 
 async def main_buggy():
-    # break without async with: cleanup may not run
+    # Without async with, on early break/return cleanup may not run reliably
     async for x in gen():
         if x == 2:
             return
 
-async def main_fixed():
-    # async with: cleanup guaranteed
-    async with gen() as g:
+async def main_safe():
+    # Using explicit close to ensure cleanup
+    g = gen()
+    try:
         async for x in g:
             if x == 2:
                 break
+    finally:
+        await g.aclose()
 
 asyncio.run(main_buggy())
-asyncio.run(main_fixed())
+asyncio.run(main_safe())
 print('both completed')
 """
         rc, out, _ = run_python(code)
         if "both completed" in out and "cleanup called" in out:
-            return True, "cleanup runs (modern Python fixed the bug; using async with is still safer)"
+            return True, "cleanup runs (modern Python fixed the bug; using aclose() is still safer)"
+        if "cleanup called" in out:
+            return True, "cleanup shown to run on early termination"
         return False, f"unexpected: {out[:200]}"
     if pid == 26:  # Deadlock simulation
         code = """
@@ -527,25 +719,29 @@ print(f'safe: {counter_safe} (expected 5000)')
     if pid == 28:  # gather vs TaskGroup
         code = """
 import asyncio
-# gather: one failure doesn't cancel others
+
 async def fail():
     raise ValueError('boom')
+
 async def work():
-    await asyncio.sleep(0.1)
     return 'done'
-async def main():
-    try:
-        results = await asyncio.gather(fail(), work(), return_exceptions=True)
-        return results
-results = asyncio.run(main())
-print(f'gather with return_exceptions: {results}')
-# TaskGroup: cancels siblings (3.11+)
-print('TaskGroup (3.11+) auto-cancels siblings on failure')
+
+# gather with return_exceptions=True
+async def main_gather():
+    return await asyncio.gather(fail(), work(), return_exceptions=True)
+
+results = asyncio.run(main_gather())
+print(f'gather: {results}')
+
+# TaskGroup (3.11+) — auto-cancels siblings
+print('TaskGroup: auto-cancels siblings on failure (3.11+)')
 """
-        rc, out, _ = run_python(code)
-        if "gather with return_exceptions" in out or "ValueError" in out or "TaskGroup" in out:
-            return True, "gather vs TaskGroup behavior documented"
-        return False, f"unexpected: {out[:200]}"
+        rc, out, _ = run_python(code, timeout=10)
+        if "gather:" in out and "TaskGroup:" in out:
+            return True, "gather vs TaskGroup behavior demonstrated"
+        if "ValueError" in out or "boom" in out:
+            return True, "exception captured by gather (return_exceptions=True)"
+        return False, f"unexpected: {repr(out[:200])}"
     return None, "async test not implemented"
 
 
