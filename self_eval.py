@@ -13,6 +13,7 @@ Output: ~/.hermes/eval/{date}.json + .md
 """
 import json
 import re
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -20,6 +21,14 @@ HERMES = Path.home() / ".hermes"
 LOGS = HERMES / "logs"
 EVAL_DIR = HERMES / "eval"
 EVAL_DIR.mkdir(exist_ok=True)
+
+# Optional LLM support
+try:
+    sys.path.insert(0, str(HERMES / "scripts"))
+    from llm_helper import llm_call
+    HAS_LLM = True
+except Exception:
+    HAS_LLM = False
 
 
 def score_response(text):
@@ -104,6 +113,23 @@ def evaluate_recent_logs():
     return entries
 
 
+def llm_meta_analysis(results, avg):
+    """Use LLM to find patterns in self-eval scores."""
+    top_feedback = []
+    for r in results[:5]:
+        top_feedback.extend(r.get("feedback", [])[:2])
+    if not top_feedback:
+        return None
+    prompt = f"""Self-eval avg score: {avg:.1f}/100
+
+Top feedback patterns:
+{chr(10).join('- ' + f for f in top_feedback[:8])}
+
+What 1-2 specific changes would improve my response quality?
+Be actionable, max 80 words, Thai/English OK."""
+    return llm_call(prompt, max_tokens=200)
+
+
 def main():
     print(f"🎯 Self-Evaluation — {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
     
@@ -151,6 +177,12 @@ def main():
     fb_count = Counter(all_feedback)
     for fb, n in fb_count.most_common(5):
         md += f"- {fb}  (×{n})\n"
+
+    # LLM meta-analysis — 1 call to find patterns (--llm flag)
+    if HAS_LLM and "--llm" in sys.argv and results:
+        meta = llm_meta_analysis(results, avg)
+        if meta:
+            md += f"\n## 🤖 LLM Meta-Analysis\n\n{meta}\n"
     out_md.write_text(md)
     
     print(f"\n📄 Saved: {out_json}")
