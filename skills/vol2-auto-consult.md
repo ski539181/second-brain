@@ -3,7 +3,7 @@ name: vol2-auto-consult
 description: Auto-consult vol2 dataset for system design topics. Triggers on keywords like raft, lsm, merkle, consensus, lock-free, neural, hyperloglog, persistent, rope, dns, two-phase, actor, distributed.
 ---
 
-# vol2 Auto-Consult Skill
+# vol2 Auto-Consult [[Skill]]
 
 When user asks about system-level design topics covered by vol2, **automatically** consult `vol2_index.py` BEFORE responding.
 
@@ -23,7 +23,7 @@ When user asks about system-level design topics covered by vol2, **automatically
 ## Workflow
 
 1. **Detect** topic in user query (Thai/English keywords)
-2. **Run** `python3 /root/.hermes/scripts/vol2_index.py <topic>` (summary only — NOT `--full`)
+2. **Run** `python3 /root/.[[Hermes]]/scripts/vol2_index.py <topic>` (summary only — NOT `--full`)
 3. **Check** bug flag (🐛 = caution, ✅ = safe)
 4. **Apply** pattern/concept only — NEVER copy code directly
 5. **If bug-flagged** topic: explicitly tell user the known bug, extract pattern, write fresh code
@@ -54,7 +54,7 @@ python3 /root/.hermes/scripts/vol2_index.py hyperloglog
 - Script: `~/.hermes/scripts/vol2_index.py`
 - Index: `~/.hermes/cache/vol2_index.json` (rebuild with `--rebuild`)
 - Tested: A/B test showed vol2 concepts help in-context (+25% on conceptual Qs)
-- Don't add to cron (lookup is on-demand only — no auto-spam)
+- Don't add to [[Cron]] (lookup is on-demand only — no auto-spam)
 
 ## Result Format (in response)
 
