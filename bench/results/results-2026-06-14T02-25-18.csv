@@ -1,0 +1,7 @@
+lib,target,run,success,status,size,time_ms,ua,error
+patchright,https://nowsecure.nl,1,false,0,0,0,,not installed
+patchright,https://bot.sannysoft.com,1,false,0,0,0,,not installed
+patchright,https://httpbin.org/headers,1,false,0,0,0,,not installed
+playwright,https://nowsecure.nl,1,false,0,0,0,,not installed
+playwright,https://bot.sannysoft.com,1,false,0,0,0,,not installed
+playwright,https://httpbin.org/headers,1,false,0,0,0,,not installed
