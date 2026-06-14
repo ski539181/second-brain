@@ -134,9 +134,11 @@ def add_docstrings(limit=10):
                 next_line = lines[next_line_idx].strip()
                 if next_line.startswith('"""') or next_line.startswith("'''"):
                     continue
-            # Insert docstring
-            indent = "    " * (lines[def_line - 1].count("    ") + 1)  # rough indent
-            docstring = f'{indent}"""{node.name} - TODO: describe."""'
+            # Insert docstring with CORRECT indent (match def line + 4 spaces)
+            def_line_text = lines[def_line - 1]
+            def_indent = len(def_line_text) - len(def_line_text.lstrip())
+            indent = " " * (def_indent + 4)
+            docstring = f'{indent}"""TODO: describe {node.name}."""'
             # Insert before first body statement
             lines.insert(next_line_idx, docstring)
             modified = True
