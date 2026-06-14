@@ -1,11 +1,11 @@
 # Challenge Verify Report
-2026-06-14 07:02
+2026-06-14 09:07
 
 ## Summary
 - Total: 45
-- ✅ Confirmed: 45
+- ✅ Confirmed: 44
 - ⏭️ Skipped: 0
-- ❌ Failed: 0
+- ❌ Failed: 1
 
 ## Results
 
@@ -52,7 +52,7 @@
 | 39 | 39. Atomic write | ✅ | fix demonstrated (atomic via tmp+replace) |
 | 40 | 40. Symlink loop | ✅ | fix verified (followlinks=False prevents loop) |
 | 41 | 41. Path traversal | ✅ | vulnerability + fix demonstrated |
-| 42 | 42. Command injection | ✅ | vulnerability demonstrated (or safe pattern verified) |
+| 42 | 42. Command injection | ❌ | unexpected:  |
 | 43 | 43. Pickle deserialization | ✅ | danger demonstrated (pickle can call arbitrary code) |
 | 44 | 44. Timing attack | ✅ | timing attack risk + hmac fix demonstrated |
 | 45 | 45. Open redirect | ✅ | vulnerability + whitelist fix demonstrated |

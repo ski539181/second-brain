@@ -52,3 +52,12 @@ python3 ~/.hermes/scripts/auto_reasoning.py --effort=high "code question" --expl
 - To use from Hermes: ต้อง patch run_agent.py หรือใช้ auto_reasoning.py แยก
 - [[Cron]] prompts ตอนนี้ใช้ B (output style soft signal) — สามารถ upgrade เป็น A (real param) ผ่าน auto_reasoning.py
 - 12s response time สำหรับ "hi" effort=none น่าจะเป็น cold start — math=17*24 effort=none = 3.2s
+
+## Gotcha: empty output with low effort + short max_tokens
+**Verified 2026-06-14** ใน dev_discussion cron:
+- `effort="low"` + `max_tokens=300` → บางครั้ง M3 returns ONLY `<think>...</think>` with **empty actual output** (thinking eats all the budget)
+- Trigger: prompt ยาวพอสมควร (persona + topic + prior messages) + tight token limit
+- Fix:
+  1. ใช้ `effort="medium"` (cost $0.0003 vs $0.0001 — ยังถูก)
+  2. หรือ `max_tokens=500+` กับ low
+  3. **Always** code a fallback: ถ้า response ว่างหลัง strip `` ให้ใช้ canned persona line

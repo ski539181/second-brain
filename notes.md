@@ -190,3 +190,18 @@ Research → apply loop ทำงาน — skill ที่บอกปัญห
 Apply patchright กับ FT data pipeline ของ Supakit — เปลี่ยนจาก "research เก็บไว้" เป็น "ship scraper ใหม่ที่ผ่าน CF 2025-26" (5-นาที drop-in per brief) แล้วใช้ output ป้อน content/audience.
 
 ---
+
+## Daily Review — 2026-06-14
+
+📊 **Score:** ✅ 1 | ⚠️ 0 | ❌ 0 / Total 1
+
+📝 **บทเรียนวันนี้:**
+Benchmark "fail 0/3 ทั้งคู่" ไม่ได้แปลว่า libs แย่ — root cause คือ env (Termux ARM64 ขาด libgtk-3) ไม่ใช่คุณภาพ library. แยกระหว่าง "tool fail" vs "env fail" ก่อนตัดสินใจ ช่วยประหยัดเวลาและไม่เพิ่ม recommendation ที่ผิดทาง.
+
+🔧 **ปรับปรุงพรุ่งนี้:**
+ต้อง test บน Linux x64 หรือ macOS ไม่ใช่ Termux — แล้ว ship ไม่ใช่แค่ research: 3 deliverables ที่ยังค้างคือ (a) apply patchright ลง FT scraper จริง, (b) ship lead-magnet post t_e0b7a931 (pending 33+ ชม.), (c) verify บน real server.
+
+🎯 **Priority พรุ่งนี้:**
+Run patchright-vs-playwright.js บน Linux x64 environment (1 host ที่ Supakit ใช้งานจริง) — ถ้า patchright ชนะจริง (production data ชี้ว่าใช่) ก็ ship `npm install patchright` แทน `playwright` ใน scraper ทันที, ถ้าแพ้ก็รู้แน่และหยุด research loop. แล้วตามด้วย ship lead-magnet draft ที่ค้าง.
+
+---

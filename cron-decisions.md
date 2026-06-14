@@ -28,3 +28,6 @@ User feedback (✅/❌/🔇) for tasks created by CEO Loop.
 [2026-06-14 07:03] 🤖 auto-exec: t_e0b7a931 (lead-magnet post: Playwright→patchright) — pending 30+ hours, user sleeping, no ❌ in feedback log, code already shipped (t_5d3558be done 19:00 6/13). Draft: ~/.hermes/notes/lead-magnet-patchright.md (5.8KB, 902 words). Awaiting user review.
 
 [2026-06-14 02:25] ✅ task: patchright-vs-playwright benchmark script (P1, ~10 min, ~12KB)
+[2026-06-14 17:03] 😴 no-task: t_bench_20260614 ยังรอ feedback (~7ชม.) — duplicate risk — ceo-loop-6
+
+[2026-06-14 18:07] 😴 no-task: t_bench_20260614 ยังรอ feedback (~9ชม.) + t_e0b7a931 lead-magnet draft pending review 33+ ชม. — duplicate risk, user must decide ก่อน — ceo-loop-7
